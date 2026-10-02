@@ -1,0 +1,43 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  xp        Int      @default(0)
+  level     Int      @default(1)
+  title     String   @default("Shell Novice")
+  streak    Int      @default(0)
+  lastPlay  DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Lesson {
+  id          Int         @id @default(autoincrement())
+  title       String
+  description String
+  order       Int
+  challenges  Challenge[]
+}
+
+model Challenge {
+  id              Int      @id @default(autoincrement())
+  lessonId        Int
+  instruction     String
+  validRegex      String   // Regex to validate the command
+  blocks          String   // JSON string of correct blocks and distractors
+  xpReward        Int      @default(10)
+  lesson          Lesson   @relation(fields: [lessonId], references: [id])
+}
