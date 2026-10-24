@@ -1,0 +1,11 @@
+{
+  "name": "linedu",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm --prefix frontend start",
+    "tunnel": "npm --prefix frontend run start -- --tunnel",
+    "frontend": "npm --prefix frontend start",
+    "backend": "npm --prefix backend run dev"
+  }
+}
